@@ -2,6 +2,17 @@ import { db } from "@/db";
 import { workouts, workoutExercises, exercises, sets } from "@/db/schema";
 import { eq, and, gte, lt } from "drizzle-orm";
 
+export async function createWorkoutForUser(
+  userId: string,
+  data: { name?: string; startedAt: Date }
+) {
+  const [workout] = await db
+    .insert(workouts)
+    .values({ ...data, userId })
+    .returning({ id: workouts.id });
+  return workout;
+}
+
 export async function getWorkoutsForUserOnDate(userId: string, date: Date) {
   const start = new Date(date);
   start.setHours(0, 0, 0, 0);

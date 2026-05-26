@@ -40,6 +40,9 @@ This is a Next.js 16 project using the App Router pattern with TypeScript and Ta
 
 - /docs/ui.md
 - /docs/data-fetching.md
+- /docs/data-mutations.md
+- /docs/auth.md
+
 
 ## Key conventions
 
