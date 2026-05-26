@@ -55,7 +55,11 @@ export default async function DashboardPage({
           ) : (
             <ul className="space-y-4">
               {workouts.map((workout) => (
-                <li key={workout.id} className="border rounded-lg p-4 space-y-3">
+                <li key={workout.id}>
+                  <Link
+                    href={`/dashboard/workout/${workout.id}`}
+                    className="block border rounded-lg p-4 space-y-3 hover:bg-accent transition-colors"
+                  >
                   <p className="font-semibold">
                     {workout.name ?? format(workout.startedAt, "p")}
                   </p>
@@ -82,6 +86,7 @@ export default async function DashboardPage({
                       ))}
                     </ul>
                   )}
+                  </Link>
                 </li>
               ))}
             </ul>
