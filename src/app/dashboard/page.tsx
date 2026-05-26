@@ -3,6 +3,8 @@ import { format, parseISO } from "date-fns";
 import { DatePicker } from "./DatePicker";
 import { getWorkoutsForUserOnDate } from "@/data/workouts";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage({
   searchParams,
 }: {

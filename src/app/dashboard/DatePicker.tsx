@@ -17,7 +17,8 @@ export function DatePicker({ date }: { date: Date }) {
   function handleSelect(d: Date | undefined) {
     if (!d) return;
     const params = new URLSearchParams();
-    params.set("date", format(d, "yyyy-MM-dd"));
+    const dateStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+    params.set("date", dateStr);
     router.push(`${pathname}?${params.toString()}`);
   }
 
