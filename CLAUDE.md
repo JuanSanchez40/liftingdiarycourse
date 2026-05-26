@@ -38,8 +38,15 @@ This is a Next.js 16 project using the App Router pattern with TypeScript and Ta
 
 **Before writing any code**, check the `/docs` directory for a relevant guide. Every feature area (auth, database, routing, styling, etc.) may have a doc there. Read the relevant file before proceeding — do not rely on training data or assumptions.
 
+Code Generation Guidelines
+IMPORTANT: When generating any code, ALWAYS first refer to the relevant documentation files within the /docs directory to understand existing patterns, conventions, and best practices before implementation:
+
 - /docs/ui.md
 - /docs/data-fetching.md
+- /docs/data-mutations.md
+- /docs/auth.md
+- /docs/server-components.md
+
 
 ## Key conventions
 

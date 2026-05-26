@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
-import { format, parseISO } from "date-fns";
+import { format, parseISO, startOfDay } from "date-fns";
+import Link from "next/link";
 import { DatePicker } from "./DatePicker";
 import { getWorkoutsForUserOnDate } from "@/data/workouts";
 
@@ -18,6 +19,7 @@ export default async function DashboardPage({
   const date = dateStr ? parseISO(dateStr) : new Date();
 
   const workouts = await getWorkoutsForUserOnDate(userId, date);
+  const canAddWorkout = startOfDay(date) >= startOfDay(new Date());
 
   return (
     <div className="min-h-screen p-8">
@@ -32,9 +34,19 @@ export default async function DashboardPage({
         <DatePicker date={date} />
 
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold">
-            Workouts for {format(date, "do MMM yyyy")}
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">
+              Workouts for {format(date, "do MMM yyyy")}
+            </h2>
+            {canAddWorkout && (
+              <Link
+                href="/dashboard/workout/new"
+                className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground shadow-xs hover:bg-primary/90 transition-colors"
+              >
+                + New Workout
+              </Link>
+            )}
+          </div>
 
           {workouts.length === 0 ? (
             <p className="text-muted-foreground text-sm">
@@ -43,7 +55,11 @@ export default async function DashboardPage({
           ) : (
             <ul className="space-y-4">
               {workouts.map((workout) => (
-                <li key={workout.id} className="border rounded-lg p-4 space-y-3">
+                <li key={workout.id}>
+                  <Link
+                    href={`/dashboard/workout/${workout.id}`}
+                    className="block border rounded-lg p-4 space-y-3 hover:bg-accent transition-colors"
+                  >
                   <p className="font-semibold">
                     {workout.name ?? format(workout.startedAt, "p")}
                   </p>
@@ -70,6 +86,7 @@ export default async function DashboardPage({
                       ))}
                     </ul>
                   )}
+                  </Link>
                 </li>
               ))}
             </ul>
