@@ -60,9 +60,16 @@ export default async function DashboardPage({
                     href={`/dashboard/workout/${workout.id}`}
                     className="block border rounded-lg p-4 space-y-3 hover:bg-accent transition-colors"
                   >
-                  <p className="font-semibold">
-                    {workout.name ?? format(workout.startedAt, "p")}
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold">
+                      {workout.name ?? format(workout.startedAt, "p")}
+                    </p>
+                    {workout.name && (
+                      <p className="text-xs text-muted-foreground">
+                        {format(workout.startedAt, "p")}
+                      </p>
+                    )}
+                  </div>
                   {workout.exercises.length > 0 && (
                     <ul className="space-y-2">
                       {workout.exercises.map((exercise) => (
